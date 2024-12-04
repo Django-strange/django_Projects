@@ -9,6 +9,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from twilio.rest import Client
 from rest_framework.authtoken.models import Token
+from dotenv import load_dotenv
 import os
 
 class GetBookingView(APIView):
@@ -81,9 +82,11 @@ class CreatePaymentTransactionsView(APIView):
         payment_transaction.save()
         transaction_id = payment_transaction.id
 
-       
+
+        load_dotenv()
+
         TWILIO_ACCOUNT_SID = os.getenv('TWILIO_ACCOUNT_SID') 
-        TWILIO_AUTH_TOKEN = '232928a39a840e4d77d5d56ce0beabee'
+        TWILIO_AUTH_TOKEN = os.getenv("TWILIO_AUTH_TOKEN")
         TWILIO_PHONE_NUMBER = '+12562554458'
         recipient_phone_number = data.get('phone', '917558164183')  
 
